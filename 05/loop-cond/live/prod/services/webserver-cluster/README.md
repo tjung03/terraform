@@ -28,8 +28,10 @@ keys](http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#acces
 environment variables:
 
 ```
-export AWS_ACCESS_KEY_ID=(your access key id)
-export AWS_SECRET_ACCESS_KEY=(your secret access key)
+read -r -p 'AWS access key ID: ' AWS_ACCESS_KEY_ID
+read -r -s -p 'AWS secret access key: ' AWS_SECRET_ACCESS_KEY
+printf '\n'
+export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
 ```
 
 In `variables.tf`, fill in the name of the S3 bucket and key where the remote state is stored for the MySQL database
@@ -59,7 +61,7 @@ terraform apply
 When the `apply` command completes, it will output the DNS name of the load balancer. To test the load balancer:
 
 ```
-curl http://<alb_dns_name>/
+curl "http://$(terraform output -raw alb_dns_name)/"
 ```
 
 Clean up when you're done:

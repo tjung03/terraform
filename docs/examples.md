@@ -47,7 +47,7 @@ DB 입력값은 실행 환경에서 입력합니다. `db_credentials.sh`에는 �
 | `05/loop-cond` 웹 모듈 | `aws_launch_configuration` | AWS는 Launch Template 사용을 안내하며, 2024-10-01 이후 생성한 계정은 새 Launch Configuration을 만들 수 없음. 저장소의 `minipro2`는 `aws_launch_template` 사용 — [AWS 안내](https://docs.aws.amazon.com/autoscaling/ec2/userguide/launch-configurations.html) |
 | `03/convert` | Amazon Linux 2의 SSM AMI 경로 | Amazon Linux 2는 2026-06-30 지원 종료. 저장소의 `minipro1`·`minipro2`는 Amazon Linux 2023 이미지 조회 — [AWS 안내](https://aws.amazon.com/amazon-linux-2/faqs/) |
 | `03`의 S3 backend | `use_lockfile = true` | S3 native locking은 Terraform 1.10에서 추가됨 — [릴리스 기록](https://github.com/hashicorp/terraform/releases/tag/v1.10.0) |
-| 기존 DB 예제 문서 | DynamoDB 잠금 안내 | 현재 S3 backend는 `use_lockfile` 지원, DynamoDB 기반 잠금은 deprecated — [HashiCorp 안내](https://developer.hashicorp.com/terraform/language/backend/s3) |
+| S3 상태 잠금 | `03`은 `use_lockfile = true` 사용 | S3 backend는 `use_lockfile` 지원, DynamoDB 기반 잠금은 deprecated — [HashiCorp 안내](https://developer.hashicorp.com/terraform/language/backend/s3) |
 | `05/loop-cond`의 다수 예제 | Terraform `>= 1.0.0, < 2.0.0`, AWS Provider `~> 4.0` | 예제의 제약은 해당 실행 디렉토리와 자식 모듈에 적용 |
 | `minipro1`·`minipro2` | AWS Provider 버전 제약 생략 | `init`에서 선택한 버전을 확인하고, 재실행 시 같은 lock 파일 사용 |
 

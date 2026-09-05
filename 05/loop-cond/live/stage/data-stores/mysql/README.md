@@ -22,15 +22,19 @@ keys](http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#acces
 environment variables:
 
 ```
-export AWS_ACCESS_KEY_ID=(your access key id)
-export AWS_SECRET_ACCESS_KEY=(your secret access key)
+read -r -p 'AWS access key ID: ' AWS_ACCESS_KEY_ID
+read -r -s -p 'AWS secret access key: ' AWS_SECRET_ACCESS_KEY
+printf '\n'
+export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
 ```
 
 Configure the database credentials as environment variables:
 
 ```
-export TF_VAR_db_username=(desired database username)
-export TF_VAR_db_password=(desired database password)
+read -r -p 'Database username: ' TF_VAR_db_username
+read -r -s -p 'Database password: ' TF_VAR_db_password
+printf '\n'
+export TF_VAR_db_username TF_VAR_db_password
 ```
 
 The S3 backend block is already present in `main.tf`. Supply an existing bucket, a state key unique to this environment, and its region during initialization:

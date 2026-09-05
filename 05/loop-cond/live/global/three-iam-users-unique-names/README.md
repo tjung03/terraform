@@ -22,8 +22,10 @@ keys](http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#acces
 environment variables:
 
 ```
-export AWS_ACCESS_KEY_ID=(your access key id)
-export AWS_SECRET_ACCESS_KEY=(your secret access key)
+read -r -p 'AWS access key ID: ' AWS_ACCESS_KEY_ID
+read -r -s -p 'AWS secret access key: ' AWS_SECRET_ACCESS_KEY
+printf '\n'
+export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
 ```
 
 In `variables.tf`, fill in the `default` parameter to configure if the "neo" IAM user should be given full access to 

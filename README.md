@@ -2,6 +2,8 @@
 
 **EC2 단일 서버에서 ALB·Auto Scaling·Aurora 구성까지 확장하며, Terraform의 리소스 참조·상태 분리·모듈화를 실습한 저장소입니다.** 강의 실습과 *Terraform: Up & Running* 예제를 함께 정리했습니다.
 
+ALB(Application Load Balancer)는 웹 요청을 분산하고, ASG(Auto Scaling Group)는 EC2 인스턴스 수를 관리합니다. AZ(Availability Zone)는 리전 안의 가용 영역을 뜻합니다.
+
 대표 구성은 [`minipro2`](minipro2/README.md)입니다. VPC·보안 그룹·ALB·RDS·EC2를 다섯 모듈로 나누고, 각 모듈의 출력을 다음 모듈의 입력으로 연결합니다. 웹 페이지에는 생성된 DB endpoint와 port를 표시합니다.
 
 ## 핵심 내용
@@ -68,7 +70,7 @@ terraform plan -var='name=Terraform'
 | 원격 상태 | `03`의 S3 backend와 `use_lockfile = true` |
 | 예제 버전 제약 | `05/loop-cond`의 다수 예제는 Terraform `>= 1.0.0, < 2.0.0`, AWS Provider `~> 4.0` |
 
-기초 예제에는 Launch Configuration과 Amazon Linux 2를 사용하는 코드도 있습니다. 현재 사용되는 Launch Template·Amazon Linux 2023 구성과 함께 [버전·호환성 안내](docs/examples.md#버전과-호환성)에 정리했습니다.
+기초 예제에는 Launch Configuration과 Amazon Linux 2를 사용하는 코드도 있습니다. 이 저장소의 Launch Template·Amazon Linux 2023 구성과 함께 [버전·호환성 안내](docs/examples.md#버전과-호환성)에 정리했습니다.
 
 ## 학습 자료와 기록
 
