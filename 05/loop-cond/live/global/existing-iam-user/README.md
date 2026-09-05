@@ -1,59 +1,36 @@
-# Existing IAM user example
+# IAM 사용자 생성과 기존 자원 가져오기
 
-This folder contains example [Terraform](https://www.terraform.io/) configuration that create an 
-[IAM](https://aws.amazon.com/iam/) user in an [Amazon Web Services (AWS) account](http://aws.amazon.com/). The goal of
-these configuration is to set the name of the IAM user to a name that already exists in your AWS account so you can 
-practice importing existing resources into Terraform state.
+[반복·조건 실습](../../../README.md)
 
-For more info, please see Chapter 5, "Terraform Tips & Tricks: Loops, If-Statements, Deployment, and Gotchas", of 
-*[Terraform: Up and Running](http://www.terraformupandrunning.com)*.
+[main.tf](main.tf)는 `for_each = toset(var.user_names)`로 IAM 사용자를 관리합니다. 기본 이름은 `red`, `blue`, `green`이며 자원 주소는 `aws_iam_user.createuser["이름"]`입니다.
 
-## Pre-requisites
+## 계획 확인
 
-* You must have [Terraform](https://www.terraform.io/) installed on your computer. 
-* You must have an [Amazon Web Services (AWS) account](http://aws.amazon.com/).
+AWS 인증을 구성한 뒤 이 디렉토리에서 실행합니다.
 
-Please note that this code was written for Terraform 1.x.
-
-## Quick start
-
-**Please note that this example will deploy real resources into your AWS account. We have made every effort to ensure 
-all the resources qualify for the [AWS Free Tier](https://aws.amazon.com/free/), but we are not responsible for any
-charges you may incur.** 
-
-Configure your [AWS access 
-keys](http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) as 
-environment variables:
-
-```
-export AWS_ACCESS_KEY_ID=(your access key id)
-export AWS_SECRET_ACCESS_KEY=(your secret access key)
-```
-
-In `main.tf`, fill in the name of an IAM user that already exists in your account:
- 
-```hcl
-resource "aws_iam_user" "existing_user" {
-  name = "<EXISTING_IAM_USER_NAME>"
-}
-``` 
-
-Validate the configuration:
-
-```
+```bash
 terraform init
-terraform apply
+terraform validate
+terraform plan
 ```
 
-If you deploy the code, you will get an error, since the user already exists! To solve this issue, use the `import` 
-command:
+계획에는 state에서 관리하지 않는 사용자 생성이 표시됩니다. 동일한 이름의 사용자가 AWS 계정에 이미 있다면 해당 자원을 먼저 가져옵니다. 예를 들어 `red`가 이미 존재하는 경우:
 
-```
-terraform import aws_iam_user.existing_user (EXISTING_IAM_USER_NAME)
+```bash
+terraform import 'aws_iam_user.createuser["red"]' red
+terraform plan
 ```
 
-Now try `apply` again:
+`blue`·`green`도 기존에 존재한다면 각각 같은 형식으로 가져옵니다. `apply`는 최종 계획에 따라 사용자를 생성·변경합니다. 가져온 사용자는 Terraform 관리 대상이 되므로 이후 삭제 계획에도 포함됩니다.
 
+## 출력
+
+[outputs.tf](outputs.tf)의 `arns`는 관리하는 사용자의 ARN 목록입니다.
+
+```bash
+terraform output arns
 ```
-terraform apply
-```
+
+하위 [for/](for/main.tf)는 이름·역할 값을 변환하는 별도 표현식 실습입니다.
+
+학습 출처: *Terraform: Up & Running*, Chapter 5. 기존 예제의 import 개념을 현재 `for_each` 자원 주소에 맞춰 설명합니다.

@@ -15,9 +15,7 @@ Please note that this code was written for Terraform 1.x.
 
 ## Quick start
 
-**Please note that this example will deploy real resources into your AWS account. We have made every effort to ensure 
-all the resources qualify for the [AWS Free Tier](https://aws.amazon.com/free/), but we are not responsible for any
-charges you may incur.** 
+Applying this example creates AWS resources and may incur charges. 
 
 Configure your [AWS access 
 keys](http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) as 
@@ -35,8 +33,15 @@ export TF_VAR_db_username=(desired database username)
 export TF_VAR_db_password=(desired database password)
 ```
 
-Open `main.tf`, uncomment the `backend` configuration, and fill in the name of your S3 bucket, DynamoDB table, and
-the path to use for the Terraform state file.
+The S3 backend block is already present in `main.tf`. Supply an existing bucket, a state key unique to this environment, and its region during initialization:
+
+```bash
+read -r -p 'S3 bucket: ' TF_STATE_BUCKET
+read -r -p 'State key: ' TF_STATE_KEY
+terraform init -backend-config="bucket=$TF_STATE_BUCKET" -backend-config="key=$TF_STATE_KEY" -backend-config="region=us-east-2"
+```
+
+The web module reads DB state from `us-east-2`. For S3 state locking, see the [repository compatibility guide](../../../../../../docs/examples.md#버전과-호환성).
 
 Deploy the code:
 

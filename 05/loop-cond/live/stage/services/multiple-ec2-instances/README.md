@@ -1,6 +1,6 @@
 # Multiple servers example
 
-This folder contains an example [Terraform](https://www.terraform.io/) configuration that deploys multiple web servers 
+This folder contains an example [Terraform](https://www.terraform.io/) configuration that deploys multiple EC2 instances 
 (using [EC2](https://aws.amazon.com/ec2/)). The goal of these configuration is to demonstrate how to use the +count+
 parameter in Terraform, as well as some of its limitations.
 
@@ -16,9 +16,7 @@ Please note that this code was written for Terraform 1.x.
 
 ## Quick start
 
-**Please note that this example will deploy real resources into your AWS account. We have made every effort to ensure 
-all the resources qualify for the [AWS Free Tier](https://aws.amazon.com/free/), but we are not responsible for any
-charges you may incur.** 
+Applying this example creates AWS resources and may incur charges. 
 
 Configure your [AWS access 
 keys](http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) as 
