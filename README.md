@@ -6,6 +6,8 @@ ALB(Application Load Balancer)는 웹 요청을 분산하고, ASG(Auto Scaling G
 
 대표 구성은 [`minipro2`](minipro2/README.md)입니다. VPC·보안 그룹·ALB·RDS·EC2를 다섯 모듈로 나누고, 각 모듈의 출력을 다음 모듈의 입력으로 연결합니다. 웹 페이지에는 생성된 DB endpoint와 port를 표시합니다.
 
+![minipro2의 Public 서브넷에 ALB와 EC2, Private 서브넷에 Aurora를 배치하고 보안 그룹으로 연결한 구성](docs/images/network.svg)
+
 ## 핵심 내용
 
 | 주제 | 코드에서 볼 수 있는 내용 | 시작점 |
