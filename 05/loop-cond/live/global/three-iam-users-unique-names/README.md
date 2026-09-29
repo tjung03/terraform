@@ -26,7 +26,7 @@ export AWS_PROFILE=terraform-lab
 aws sts get-caller-identity
 ```
 
-If IAM Identity Center is unavailable, use an approved profile that supplies temporary credentials and set `AWS_PROFILE` to its name. Keep credentials out of Terraform files and this repository.
+If IAM Identity Center is unavailable, use an approved profile that supplies temporary credentials and set `AWS_PROFILE` to its name. Existing `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, or `AWS_SESSION_TOKEN` values can take precedence over a profile, so check the active credentials and account before applying. Keep credentials out of Terraform files and this repository.
 
 In `variables.tf`, fill in the `default` parameter to configure if the "neo" IAM user should be given full access to 
 CloudWatch or only read-only access:

@@ -32,7 +32,7 @@ export AWS_PROFILE=terraform-lab
 aws sts get-caller-identity
 ```
 
-If IAM Identity Center is unavailable, use an approved profile that supplies temporary credentials and set `AWS_PROFILE` to its name. Keep credentials out of Terraform files and this repository.
+If IAM Identity Center is unavailable, use an approved profile that supplies temporary credentials and set `AWS_PROFILE` to its name. Existing `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, or `AWS_SESSION_TOKEN` values can take precedence over a profile, so check the active credentials and account before applying. Keep credentials out of Terraform files and this repository.
 
 In `variables.tf`, fill in the name of the S3 bucket and key where the remote state is stored for the MySQL database
 (you must deploy the configuration in [data-stores/mysql](../../data-stores/mysql) first):
