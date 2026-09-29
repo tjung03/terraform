@@ -17,16 +17,16 @@ Please note that this code was written for Terraform 1.x.
 
 Applying this example creates AWS resources and may incur charges. 
 
-Configure your [AWS access 
-keys](http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) as 
-environment variables:
+Use a profile with temporary AWS credentials. If your account provides IAM Identity Center, configure and sign in to a profile; select the profile for both the AWS provider and any S3 backend. Check the account before creating resources. See the [AWS CLI Identity Center guide](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sso.html) and [Terraform provider credentials guide](https://developer.hashicorp.com/terraform/tutorials/configuration-language/configure-providers).
 
+```bash
+aws configure sso --profile terraform-lab
+aws sso login --profile terraform-lab
+export AWS_PROFILE=terraform-lab
+aws sts get-caller-identity
 ```
-read -r -p 'AWS access key ID: ' AWS_ACCESS_KEY_ID
-read -r -s -p 'AWS secret access key: ' AWS_SECRET_ACCESS_KEY
-printf '\n'
-export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
-```
+
+If IAM Identity Center is unavailable, use an approved profile that supplies temporary credentials and set `AWS_PROFILE` to its name. Keep credentials out of Terraform files and this repository.
 
 Configure the database credentials as environment variables:
 
@@ -47,10 +47,10 @@ terraform init -backend-config="bucket=$TF_STATE_BUCKET" -backend-config="key=$T
 
 The web module reads DB state from `us-east-2`. For S3 state locking, see the [repository compatibility guide](../../../../../../docs/examples.md#버전과-호환성).
 
-Deploy the code:
+Review the plan after backend initialization, then apply only to the intended account:
 
-```
-terraform init
+```bash
+terraform plan
 terraform apply
 ```
 
