@@ -1,6 +1,6 @@
 # Terraform · AWS 인프라 구성 실습
 
-**EC2 단일 서버에서 ALB·Auto Scaling·Aurora 구성까지 확장하며, Terraform의 리소스 참조·상태 분리·모듈화를 실습한 저장소입니다.** 강의 실습과 *Terraform: Up & Running* 예제를 함께 정리했습니다.
+**EC2 단일 서버에서 ALB·Auto Scaling·Aurora 구성까지 확장하며, Terraform의 리소스 참조·상태 분리·모듈화를 다루는 예제 저장소입니다.** 일부 예제는 *Terraform: Up & Running*을 출처로 합니다.
 
 ALB(Application Load Balancer)는 웹 요청을 분산하고, ASG(Auto Scaling Group)는 EC2 인스턴스 수를 관리합니다. AZ(Availability Zone)는 리전 안의 가용 영역을 뜻합니다.
 
@@ -74,6 +74,6 @@ terraform plan -var='name=Terraform'
 
 기초 예제에는 Launch Configuration과 Amazon Linux 2를 사용하는 코드도 있습니다. 이 저장소의 Launch Template·Amazon Linux 2023 구성과 함께 [버전·호환성 안내](docs/examples.md#버전과-호환성)에 정리했습니다.
 
-## 학습 자료와 기록
+## 예제 출처
 
-`05/loop-cond`의 기존 예제는 *Terraform: Up & Running* Chapter 5를 출처로 명시하고 있습니다. 예제 출처는 해당 문서에 유지했으며, 저장소의 학습 기록은 [커밋 이력](https://github.com/tjung03/terraform/commits/main/)에서 확인할 수 있습니다.
+`05/loop-cond`의 일부 예제는 *Terraform: Up & Running* Chapter 5를 출처로 명시합니다. 해당 예제의 사용 조건과 적용 범위는 각 디렉터리의 문서에서 확인합니다.
