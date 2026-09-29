@@ -32,7 +32,9 @@
 
 S3 예제에는 고정 버킷 이름이 있으므로 실행할 계정의 버킷 이름으로 맞춰 사용합니다. `03/global/s3`와 `03/elb-web-db/global/s3`는 동일한 버킷 이름을 정의하므로 하나의 버킷을 두 state에서 중복 관리하지 않도록 실습을 분리합니다. S3 예제의 `force_destroy = true`는 삭제 시 버킷 객체도 함께 제거하는 설정입니다.
 
-DB 입력값은 실행 환경에서 입력합니다. `db_credentials.sh`에는 고정 예시 값이 있으므로 실제 환경의 자격증명은 별도로 전달합니다. `sensitive`는 화면 표시를 가리는 설정이며 state의 비밀값 저장을 막지 않습니다. [HashiCorp 민감 데이터 안내](https://developer.hashicorp.com/terraform/language/manage-sensitive-data)
+`03/elb-web-db/stage/data-stores/mysql`은 자격증명 입력과 실제 리소스 설정이 일치하지 않습니다. `db_credentials.sh`는 예시 `TF_VAR_dbuser`·`TF_VAR_dbpassword`를 내보내지만, `main.tf`의 `aws_db_instance.myDB`는 사용자 이름에 `var.dbuser`를 쓰고 비밀번호에는 문자열 `"password"`를 직접 사용합니다. 따라서 `TF_VAR_dbpassword`를 바꿔도 DB 비밀번호는 바뀌지 않습니다. 이 예제는 그대로 `apply`하지 말고 리소스의 비밀번호 참조를 입력 변수로 고친 뒤 별도 비밀값을 전달해야 합니다. 하드코딩된 예시 값은 실제 자격증명으로 사용하지 않습니다.
+
+`minipro2`는 `var.db_username`·`var.db_password`를 Aurora에 전달합니다. 두 예제 모두 `sensitive`는 화면 표시를 가리는 설정이며 state의 비밀값 저장을 막지 않습니다. [HashiCorp 민감 데이터 안내](https://developer.hashicorp.com/terraform/language/manage-sensitive-data)
 
 ## 초기화 스크립트
 
